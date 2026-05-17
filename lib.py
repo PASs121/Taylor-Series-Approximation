@@ -45,13 +45,13 @@ def sine(x: float | Decimal, terms: int = 50) -> Decimal:
     if isinstance(x, float):
         x = Decimal(str(x))
 
-    sum = Decimal(0)
+    result = Decimal(0)
 
     for i in range(0, terms):
         n = Decimal(i)
-        sum += ((-1)**(i)) * (x**(2*n+1)) / Decimal(factorial(2*i+1))
+        result += ((-1)**(i)) * (x**(2*n+1)) / Decimal(factorial(2*i+1))
 
-    return sum
+    return result
 
 
 def cosine(x: float | Decimal, terms: int = 50) -> Decimal:
@@ -70,12 +70,13 @@ def cosine(x: float | Decimal, terms: int = 50) -> Decimal:
     if isinstance(x, float):
         x = Decimal(str(x))
 
-    sum = Decimal(0)
+    result = Decimal(0)
 
     for i in range(0, terms):
         n = Decimal(i)
-        sum += ((-1)**(i)) * (x**(2*n)) / Decimal(factorial(2*i))
-    return sum
+        result += ((-1)**(i)) * (x**(2*n)) / Decimal(factorial(2*i))
+
+    return result
 
 
 # -------- PLOT SECTION --------
