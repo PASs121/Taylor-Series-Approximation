@@ -1,7 +1,9 @@
-from math import cos, pi, sin
+from math import cos, pi, sin, exp
 from decimal import Decimal, getcontext
 
 from matplotlib import pyplot as plt
+
+getcontext().prec = 50
 
 
 def factorial(n: int) -> int:
@@ -29,12 +31,12 @@ def factorial(n: int) -> int:
 
 
 def sine(x: float | Decimal, terms: int = 50) -> Decimal:
-    """Fuction implementing Taylor series approximation of sine.
+    """Function implementing Taylor series approximation of sine.
 
     :param x: Value in radians for which sine is to be calculated.
     :type x: float | Decimal
 
-    :param terms: Number of terms in the Talyor series, defaults to 50. Higher value results in higher accuracy.
+    :param terms: Number of terms in the Taylor series, defaults to 50. Higher value results in higher accuracy.
     :type terms: int, optional
 
     :return: Calculated sine of x (approx.)
@@ -42,7 +44,7 @@ def sine(x: float | Decimal, terms: int = 50) -> Decimal:
     """
     
 
-    if isinstance(x, float):
+    if not isinstance(x, Decimal):
         x = Decimal(str(x))
 
     result = Decimal(0)
@@ -55,7 +57,7 @@ def sine(x: float | Decimal, terms: int = 50) -> Decimal:
 
 
 def cosine(x: float | Decimal, terms: int = 50) -> Decimal:
-    """Fuction implementing Taylor series approximation of cosine.
+    """Function implementing Taylor series approximation of cosine.
 
     :param x: Value in radians for which cosine is to be calculated.
     :type x: float | Decimal
@@ -67,7 +69,7 @@ def cosine(x: float | Decimal, terms: int = 50) -> Decimal:
     :rtype: Decimal
     """
 
-    if isinstance(x, float):
+    if not isinstance(x, Decimal):
         x = Decimal(str(x))
 
     result = Decimal(0)
@@ -79,133 +81,33 @@ def cosine(x: float | Decimal, terms: int = 50) -> Decimal:
     return result
 
 
-# -------- PLOT SECTION --------
+def exponential(x: float | Decimal, terms: int = 50) -> Decimal:
+    """Function implementing Taylor series approximation of exponential.
 
-# Lists for the x and y values of the curves
-x_values = []
-taylor_sin_values = []
-taylor_cos_values = []
-math_sin_values = []
-math_cos_values = []
-delta_sin_values = []
-delta_cos_values = []
+    :param x: 
+        Value for which exponential is to be calculated.
+    :type x: 
+        float | Decimal
 
+    :param terms: 
+        Number of terms in Taylor series, defaults to 50. Higher value results in higher accuracy.
+    :type terms: 
+        int, optional
 
-# Generate points from -12π to 12π
-step = 0.05
-x = -12 * pi
+    
+    :return: Calculated exponential of x (e^x).
+    :rtype: Decimal
+    """
 
-while x <= 12 * pi:
+    if not isinstance(x, Decimal):
+        x = Decimal(str(x))
+    
+    result = Decimal(0)
 
-    x_values.append(x)
+    for i in range(0, terms):
+        result += ((x**Decimal(i)) / Decimal(factorial(i)))
+    
+    return result 
 
-    # Taylor series sine
-    taylor_y = float(sine(x))
-    taylor_sin_values.append(taylor_y)
-
-    # Built-in math.sin()
-    math_y = sin(x)
-    math_sin_values.append(math_y)
-
-    # Difference between Taylor series and math sine functions
-    delta_sin_values.append(abs(taylor_y - math_y))
-
-    # Taylor series cosine
-    taylor_y = float(cosine(x))
-    taylor_cos_values.append(taylor_y)
-
-    # Built-in math.cos()
-    math_y = cos(x)
-    math_cos_values.append(math_y)
-
-    # Difference between Taylor series and math cosine functions
-    delta_cos_values.append(abs(taylor_y - math_y))
-
-    x += step
-
-
-# Create the plots for the Taylor series and math functions
-
-plt.figure(figsize=(10, 5))
-
-# Taylor series curve
-plt.plot(
-    x_values,
-    taylor_sin_values,
-    label="Taylor Series sin(x)",
-    color="blue",
-    linewidth=2
-)
-
-# math.sin curve
-plt.plot(
-    x_values,
-    math_sin_values,
-    label="math.sin(x)",
-    color="red",
-    linestyle="dashed",
-    linewidth=2
-)
-
-# Difference between Taylor series and math sine curves
-plt.plot(
-    x_values,
-    delta_sin_values,
-    label="Difference in sin(x)",
-    color="magenta",
-    linestyle="solid",
-    linewidth=1
-)
-
-plt.title("Comparison of Taylor Series and math sine functions")
-plt.xlabel("Value of x (radians)")
-plt.ylabel("Value of sin(x)")
-
-plt.axhline(0, color='black', linewidth=0.5)
-plt.axvline(0, color='black', linewidth=0.5)
-
-plt.grid(True)
-plt.legend()
-
-plt.figure(figsize=(10, 5))
-
-# Taylor series cosine curve
-plt.plot(
-    x_values,
-    taylor_cos_values,
-    label="Taylor Series cos(x)",
-    color="cyan",
-    linewidth=2
-)
-
-# math.cos curve
-plt.plot(
-    x_values,
-    math_cos_values,
-    label="math.cos(x)",
-    color="green",
-    linestyle="dashed",
-    linewidth=2
-)
-
-# Difference between Taylor series and math cosine curves
-plt.plot(
-    x_values,
-    delta_cos_values,
-    label="Difference in cos(x)",
-    color="orange",
-    linestyle="solid",
-    linewidth=1
-)
-
-plt.title("Comparison of Taylor Series and math cosine functions")
-plt.xlabel("Value of x (radians)")
-plt.ylabel("Value of cos(x)")
-
-plt.axhline(0, color='black', linewidth=0.5)
-plt.axvline(0, color='black', linewidth=0.5)
-
-plt.grid(True)
-plt.legend()
-
-plt.show()
+if __name__ == "__main__":
+    print("This is the module for the mathematical functions in the sin_cos program. \nRun main.py to start the application.")
