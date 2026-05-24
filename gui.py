@@ -9,7 +9,6 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtGui import QIcon
 from PyQt6 import uic
-from qt_material import apply_stylesheet
 
 from plotter import Plotter
 from lib import sine, cosine, exponential
@@ -85,6 +84,8 @@ class App(QMainWindow):
         self.rangeSlider.valueChanged.connect(self.update_terms)
         self.rangeBox.valueChanged.connect(self.update_terms)
 
+        self.functionSelect.currentIndexChanged.connect(self.update_labels)
+
         self.closeButton.clicked.connect(self.close)
 
     def calculate(self) -> None:
@@ -119,6 +120,24 @@ class App(QMainWindow):
 
         plot_func = plot_functions[function]
         plot_func(terms, plot_range)
+
+    def update_labels(self) -> None:
+        function = self.functionSelect.currentText()
+
+        if function == "sine":
+            self.taylorLabel.setText("Taylor series sin(x):")
+            self.actualLabel.setText("Actual sin(x):")
+
+        elif function == "cosine":
+            self.taylorLabel.setText("Taylor series cos(x):")
+            self.actualLabel.setText("Actual cos(x):")
+
+        elif function == "exp":
+            self.taylorLabel.setText("Taylor series exp(x):")
+            self.actualLabel.setText("Actual exp(x):")
+
+        else:
+            pass
 
     def update_terms(self) -> None:
         
