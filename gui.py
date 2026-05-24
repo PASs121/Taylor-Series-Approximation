@@ -14,13 +14,22 @@ from plotter import Plotter
 from lib import sine, cosine, exponential
 from math import sin, cos, exp
 
+# This file contains the main application class for the Taylor series program, inheriting from QMainWindow. It handles the GUI and user interactions for calculating and plotting Taylor series approximations of sine, cosine and exponential functions.
+
+
+# Paths to UI and icon files. Edit these if the files are not found.
+
 ui_path = str(pathlib.Path("ui/gui.ui").absolute())
 close_icon_path = str(pathlib.Path("assets/x-circle.png").absolute())
 window_icon_path = str(pathlib.Path("assets/window-icon.png").absolute())
 graph_icon_path = str(pathlib.Path("assets/graph-icon.svg").absolute())
 calc_icon_path = str(pathlib.Path("assets/calculate-icon.svg").absolute())
 
+
+# Main application class for the Taylor series program.
 class App(QMainWindow):
+    """Main application class for the Taylor series program, inheriting from QMainWindow.
+    """
 
     def __init__(self) -> None:
         super().__init__()
@@ -89,6 +98,8 @@ class App(QMainWindow):
         self.closeButton.clicked.connect(self.close)
 
     def calculate(self) -> None:
+        """Function to calculate and update the GUI based on selected function and entered x value.
+        """
 
         try:
             x = float(self.xValue.text())
@@ -110,7 +121,10 @@ class App(QMainWindow):
                 "Please enter a valid number for x."
                 )
             
+    
     def plot(self) -> None:
+        """Function to plot a line graph using the function, range and terms input in the GUI.
+        """
 
         function = self.functionSelect_2.currentText()
         terms = self.termSlider_2.value()
@@ -140,6 +154,8 @@ class App(QMainWindow):
             pass
 
     def update_terms(self) -> None:
+        """Function to synchronize the term/range sliders with input spin boxes.
+        """
         
         sender = self.sender()
 
@@ -171,6 +187,8 @@ class App(QMainWindow):
             pass
 
     def init_ui(self) -> None:
+        """Function to initialize the GUI.
+        """
 
         self.taylorValue.setText("  -  ")
         self.actualValue.setText("  -  ")
@@ -204,6 +222,8 @@ class App(QMainWindow):
         self.rangeBox.setValue(4)
 
     def reset_all(self) -> None:
+        """Function to reset all options and fields to default state.
+        """
         
         self.functionSelect.setCurrentIndex(0)
         self.functionSelect_2.setCurrentIndex(0)
@@ -222,6 +242,9 @@ class App(QMainWindow):
         self.xValue.clear()
 
     def keyPressEvent(self, event) -> None:
+        """Function that handles keyboard inputs for the application. Currently supports Ctrl + R to reset all fields.
+        """
+        
         if event.key() == Qt.Key.Key_R and event.modifiers() == Qt.KeyboardModifier.ControlModifier:
             
             button = QMessageBox.question(

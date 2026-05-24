@@ -3,8 +3,11 @@ from decimal import Decimal, getcontext
 
 from matplotlib import pyplot as plt
 
-getcontext().prec = 50
 
+# This file contains functions to calculate factorial of a number, and functions implementing Taylor series approximation of sine, cosine and exponential.
+
+
+getcontext().prec = 50
 
 def factorial(n: int) -> int:
     """Function to calculate factorial of a number.
