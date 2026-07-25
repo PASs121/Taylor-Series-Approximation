@@ -1,4 +1,3 @@
-from math import cos, pi, sin, exp
 from decimal import Decimal, getcontext
 
 from matplotlib import pyplot as plt

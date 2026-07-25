@@ -4,7 +4,7 @@ import pathlib
 from PyQt6.QtCore import Qt
 
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QMessageBox,
+    QMainWindow, QMessageBox,
     QLabel, QComboBox, QLineEdit, QSlider, QPushButton, QSpinBox
 )
 from PyQt6.QtGui import QIcon
@@ -136,6 +136,8 @@ class App(QMainWindow):
         plot_func(terms, plot_range)
 
     def update_labels(self) -> None:
+        """Function to update the labels based on the selected function.
+        """
         function = self.functionSelect.currentText()
 
         if function == "sine":
@@ -150,8 +152,6 @@ class App(QMainWindow):
             self.taylorLabel.setText("Taylor series exp(x):")
             self.actualLabel.setText("Actual exp(x):")
 
-        else:
-            pass
 
     def update_terms(self) -> None:
         """Function to synchronize the term/range sliders with input spin boxes.
@@ -183,8 +183,6 @@ class App(QMainWindow):
             plot_range = self.rangeBox.value()
             self.rangeSlider.setValue(plot_range)
 
-        else:
-            pass
 
     def init_ui(self) -> None:
         """Function to initialize the GUI.

@@ -1,13 +1,13 @@
 from matplotlib import pyplot as plt
-from decimal import Decimal
+
 from numpy import arange
 from math import cos, pi, sin, exp
 from lib import sine, cosine, exponential
 
 # This file contains the Plotter class for plotting line graphs using Matplotlib for comparison of Taylor series and math functions.
 
-class Plotter():
-    """Class object for plotting line graphs using Matplotlib for comparison.
+class Plotter:
+    """Class object providing methods for plotting line graphs using Matplotlib for comparison.
     """
 
     def __init__(self):
